@@ -17,6 +17,8 @@ const Feedback=()=>{
        
     return (
         <>
+      
+
         <h2>give feedback</h2>
         <button onClick={goodPlus}>good</button>
         <button onClick={NeutralPlus}>neutral</button>

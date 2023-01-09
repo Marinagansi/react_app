@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Feedback from './components/Feedback';
+import Button from './components/Button';
 import './App.css';
  
 function App({name,age}) {
@@ -14,14 +15,14 @@ function App({name,age}) {
  }
   return (
     <>
-    <h2>Hello {name}, you're{age}years old</h2>
+    {/* <h2>Hello {name}, you're{age}years old</h2>
     <h2>{counter}</h2>
     <button onClick={handlePlus}>plus</button>
-    <button onClick={handleminus}>Minus</button>
-
+    <button onClick={handleminus}>Minus</button> */}
+<br/>
     
-      
-    <Feedback/>
+      <Button/>
+    {/* <Feedback/> */}
     
     </>
 

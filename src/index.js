@@ -24,9 +24,18 @@ const notes=[
     }
   ]
 
+  const forms=[
+    {
+      "id": 1,
+      "name": "Marina",
+      "number": "9888",
+      "important": true
+    },
+  ]
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <App notes={notes}/>
+    <App notes={notes} forms={forms}/>
 );
 
 

@@ -1,8 +1,9 @@
 
 import { useState} from 'react';
+import Form from './components/Form';
 // import axios from "axios";
 import './App.css';
- 
+  
 function App(props) {
   const[newNote,setNewNote]=useState('')
   const[notes,setNotes]=useState(props.notes)
@@ -60,7 +61,7 @@ const deletenote=(id)=>{
     <button onClick={handleadd}>add</button>
    </form>
 
-    
+  <Form/>
     </>
 
   );

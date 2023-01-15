@@ -1,9 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-const notes=[
+{
+  "notes": [
     {
       "id": 1,
       "content": "HTML is easy",
@@ -23,12 +19,4 @@ const notes=[
       "important": false
     }
   ]
-
- 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-    <App />
-);
-
-
+}

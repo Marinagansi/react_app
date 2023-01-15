@@ -1,21 +1,23 @@
 
-import { useState} from 'react';
+import { useState,useEffect} from 'react';
 import Form from './components/Form';
-// import axios from "axios";
+import axios from "axios";
 import './App.css';
   
-function App(props) {
+function App() {
   const[newNote,setNewNote]=useState('')
-  const[notes,setNotes]=useState(props.notes)
+  const[notes,setNotes]=useState([])
   const[showAll, setshowAll]=useState(true)
 
-  // useEffect(()=>{
-  //   axios.get('http://localhost:3002/notes')
-  //   .then((response)=>{
-  //     console.log(response)
-  //     setNotes(response.data)
-  //   })
-  // },[])
+  useEffect(()=>{
+    axios.get('http://localhost:3002/notes')
+    .then((response)=>{
+      console.log(response)
+      setNotes(response.data)
+    }).catch(err=>(console.log(err)))
+  },[])
+
+
 const handleInputChange=(event)=>{
 console.log(event.target.value)
 setNewNote(event.target.value)  
@@ -24,14 +26,22 @@ const handleadd=(event)=>{
   event.preventDefault()
   //create a new note
   const note={
-    id:notes.length+1,
+ 
     content:newNote,
     date:new Date().toString(),
     important:Math.random()<0.5
   }
-  if (newNote!=='')
-  setNotes(notes.concat(note))
-  setNewNote("")
+  if(newNote!==''){
+    axios.post('http://localhost:3002/notes',note)
+    .then(response=>{
+      console.log(response)
+      setNotes(notes.concat(response.data))
+    }).catch(err=>console.log(err))
+  }
+ 
+  // if (newNote!=='')
+  // setNotes(notes.concat(note))
+  // setNewNote("")
 }
 const notesShow=showAll 
 ? notes
@@ -39,9 +49,15 @@ const notesShow=showAll
 
 const deletenote=(id)=>{
   if(window.confirm(`do you want to delete ${id}`)){
-   setNotes( notes.filter(n=>n.id!==id))
+  axios.delete(`http://localhost:3002/notes/${id}`)
+  .then(response=>{
+    console.log(response)
+      setNotes( notes.filter(n=>n.id!==id))
+    
+  }).catch(err=>console.log(err))
+ 
   }
-  }
+}
 
   return (
     <>
@@ -61,7 +77,7 @@ const deletenote=(id)=>{
     <button onClick={handleadd}>add</button>
    </form>
 
-  <Form/>
+
     </>
 
   );

@@ -44,6 +44,7 @@ const handleadd=(event)=>{
   // setNewNote("")
 }
 const notesShow=showAll 
+
 ? notes
 :notes.filter(n=>n.important===true)
 

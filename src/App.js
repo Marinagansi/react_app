@@ -60,6 +60,7 @@ const deletenote=(id)=>{
   }
 }
 
+
   return (
     <>
    <h2>Notes</h2>

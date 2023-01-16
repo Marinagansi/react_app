@@ -1,21 +1,46 @@
-
 import { useState,useEffect} from 'react';
-import Form from './components/Form';
 import axios from "axios";
 import './App.css';
+import Note from "./components/Note";
   
 function App() {
   const[newNote,setNewNote]=useState('')
   const[notes,setNotes]=useState([])
   const[showAll, setshowAll]=useState(true)
 
-  useEffect(()=>{
-    axios.get('http://localhost:3002/notes')
-    .then((response)=>{
-      console.log(response)
-      setNotes(response.data)
-    }).catch(err=>(console.log(err)))
-  },[])
+
+  //useEffect -> render component
+  // useEffect(()=>{
+  //   axios.get('http://localhost:3002/notes')
+  //   .then((response)=>{
+  //     console.log(response)
+  //     setNotes(response.data)
+  //   }).catch(err=>(console.log(err)))
+  // },[])
+//[] to stop loop
+
+// const getNotes=()=>{
+//     axios.get('http://localhost:3002/notes')
+//     .then((response)=>{
+//       console.log(response)
+//       setNotes(response.data)
+//     }).catch(err=>(console.log(err)))
+  
+// }
+
+const getNotes= async ()=>{
+  try{
+    let response=await axios.get('http://localhost:3002/notes')
+    console.log(response)
+    setNotes(response.data)
+  }catch(err){
+  console.log(err)
+  }
+
+}
+
+useEffect(getNotes,[])
+
 
 
 const handleInputChange=(event)=>{
@@ -65,13 +90,13 @@ const deletenote=(id)=>{
    <h2>Notes</h2>
    <button onClick={()=>setshowAll(!showAll)}>{showAll ? 'show important':'show all'}</button>
     {/* <button onClick={showImportant}>show important</button> */}
-   <ul>
+    <ul>
      {notesShow.map(note=>
-     <li key={note.id}>
-      {note.content}<br/>
-      {note.date}<br/>
-      <button onClick={()=>deletenote(note.id)}>delete</button>
-      </li>)} 
+      <li key={note.id}>
+ <Note note={note} deletenote={deletenote}/>
+      </li>
+    
+  )} 
    </ul>
    <form>
     <input value={newNote} onChange={handleInputChange}/>
